@@ -1,7 +1,5 @@
 /*
- * $Id$
- * --------------------------------------------------------------------------------------
- * Copyright (c) Ricston Ltd  All rights reserved.  http://www.ricston.com
+ * Copyright (c) Ricston Ltd.  All rights reserved.  http://www.ricston.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
@@ -13,25 +11,19 @@ import org.mule.api.MuleContext;
 import org.mule.config.spring.SpringXmlConfigurationBuilder;
 import org.mule.context.DefaultMuleContextFactory;
 import org.mule.util.FileUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.ow2.bonita.facade.APIAccessor;
 import org.ow2.bonita.facade.QueryDefinitionAPI;
 import org.ow2.bonita.facade.def.element.BusinessArchive;
 import org.ow2.bonita.facade.impl.StandardAPIAccessorImpl;
 import org.ow2.bonita.facade.uuid.ProcessDefinitionUUID;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The MuleManager is used in order to manage Mule Instances. The Mule Manager allows

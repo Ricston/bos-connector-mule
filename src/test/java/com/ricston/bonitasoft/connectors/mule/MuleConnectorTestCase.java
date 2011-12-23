@@ -1,18 +1,23 @@
+/*
+ * Copyright (c) Ricston Ltd.  All rights reserved.  http://www.ricston.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
 package com.ricston.bonitasoft.connectors.mule;
-
-import org.mule.api.MuleContext;
-import org.mule.api.MuleMessage;
-import org.mule.module.client.MuleClient;
-
-import java.util.List;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
+import org.mule.api.MuleContext;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
 import org.ow2.bonita.connector.core.Connector;
 import org.ow2.bonita.connector.core.ConnectorError;
 import org.ow2.bonita.facade.uuid.ProcessDefinitionUUID;
 import org.ow2.bonita.util.BonitaException;
+
+import java.util.List;
 
 public class MuleConnectorTestCase extends TestCase {
 

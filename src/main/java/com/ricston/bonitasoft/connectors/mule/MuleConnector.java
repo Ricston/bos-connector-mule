@@ -1,7 +1,5 @@
 /*
- * $Id$
- * --------------------------------------------------------------------------------------
- * Copyright (c) Ricston Ltd  All rights reserved.  http://www.ricston.com
+ * Copyright (c) Ricston Ltd.  All rights reserved.  http://www.ricston.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
@@ -9,18 +7,18 @@
  */
 package com.ricston.bonitasoft.connectors.mule;
 
+import org.mule.api.MuleContext;
+import org.mule.api.MuleMessage;
+import org.mule.module.client.MuleClient;
+import org.ow2.bonita.connector.core.ConnectorError;
+import org.ow2.bonita.connector.core.ProcessConnector;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.mule.api.MuleContext;
-import org.mule.api.MuleMessage;
-import org.mule.module.client.MuleClient;
-import org.ow2.bonita.connector.core.ConnectorError;
-import org.ow2.bonita.connector.core.ProcessConnector;
 
 /**
  * This MuleConnector will allow Bonita Processes to Send, Dispatch and Request

@@ -1,32 +1,32 @@
+/*
+ * Copyright (c) Ricston Ltd.  All rights reserved.  http://www.ricston.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
 package com.ricston.bonitasoft.connectors.mule;
 
-import org.mule.api.MuleContext;
-
-import java.io.File;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-import javax.security.auth.login.LoginContext;
-
 import junit.framework.TestCase;
-
+import org.mule.api.MuleContext;
 import org.ow2.bonita.facade.ManagementAPI;
 import org.ow2.bonita.facade.QueryRuntimeAPI;
 import org.ow2.bonita.facade.RuntimeAPI;
 import org.ow2.bonita.facade.def.element.BusinessArchive;
 import org.ow2.bonita.facade.def.majorElement.ProcessDefinition;
-import org.ow2.bonita.facade.runtime.ActivityInstance;
-import org.ow2.bonita.facade.runtime.ActivityState;
-import org.ow2.bonita.facade.runtime.InstanceState;
-import org.ow2.bonita.facade.runtime.ProcessInstance;
-import org.ow2.bonita.facade.runtime.TaskInstance;
+import org.ow2.bonita.facade.runtime.*;
 import org.ow2.bonita.facade.uuid.ProcessDefinitionUUID;
 import org.ow2.bonita.facade.uuid.ProcessInstanceUUID;
 import org.ow2.bonita.util.AccessorUtil;
 import org.ow2.bonita.util.BonitaConstants;
 import org.ow2.bonita.util.BusinessArchiveFactory;
 import org.ow2.bonita.util.SimpleCallbackHandler;
+
+import javax.security.auth.login.LoginContext;
+import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class EmbeddedMuleTestCase extends TestCase {
 

@@ -1,16 +1,11 @@
 /*
- * $Id: MuleRecorder.java 1663 2011-10-30 17:55:15Z claude.mamo $
- * --------------------------------------------------------------------------------------
- * Copyright (c) Ricston Ltd  All rights reserved.  http://www.ricston.com
+ * Copyright (c) Ricston Ltd.  All rights reserved.  http://www.ricston.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package com.ricston.bonitasoft.connectors.mule;
-
-import java.util.Set;
 
 import org.ow2.bonita.facade.def.InternalProcessDefinition;
 import org.ow2.bonita.facade.runtime.ActivityInstance;
@@ -21,6 +16,8 @@ import org.ow2.bonita.facade.uuid.ActivityInstanceUUID;
 import org.ow2.bonita.facade.uuid.ProcessInstanceUUID;
 import org.ow2.bonita.services.Recorder;
 import org.ow2.bonita.type.lob.Lob;
+
+import java.util.Set;
 
 public class MuleRecorder implements Recorder
 {
