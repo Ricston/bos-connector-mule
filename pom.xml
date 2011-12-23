@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ricston.bonitasoft.connectors</groupId>
+    <artifactId>bos-connector-mule</artifactId>
+    <name>BOS Mule Connector</name>
+    <version>5.2-2.2.1</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/lib</outputDirectory>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeArtifactIds>
+                                bonita-client,bonita-server,mule-modules-all,mule-transports-all,mule-tests-functional,ant-contrib
+                            </excludeArtifactIds>
+                            <excludeScope>provided</excludeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-libs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <taskdef name="if" classname="net.sf.antcontrib.logic.IfTask"
+                                         classpathref="maven.runtime.classpath"/>
+                                <if>
+                                    <equals arg2="bonita-connectors" arg1="java"/>
+                                    <then>
+                                        <echo message="Building parent. Skipping libs copy."/>
+                                    </then>
+                                    <else>
+                                        <copy todir="target/mule-5.2.2/mule/lib" overwrite="true"
+                                              failonerror="false">
+                                            <fileset dir="target/lib">
+                                                <exclude name="mule-core-2.2.1-tests.jar"/>
+                                                <include name="*.jar"/>
+                                                <!-- <exclude name="bonita-client*"/> -->
+                                            </fileset>
+                                            <fileset
+                                                    dir="${settings.localRepository}/org/mule/transports/mule-transport-bos/${mule.version}">
+                                                <include name="mule-transport-bos-${mule.version}.jar"/>
+                                            </fileset>
+                                        </copy>
+                                        <copy todir="target/mule-5.2.2/mule" overwrite="true"
+                                              failonerror="false">
+                                            <fileset dir="target">
+                                                <include name="mule-5.2.2.jar"/>
+                                            </fileset>
+                                        </copy>
+                                        <zip basedir="target/mule-5.2.2" destfile="target/mule-5.2.2.zip"/>
+                                    </else>
+                                </if>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.bonita</groupId>
+            <artifactId>bonita-client</artifactId>
+            <version>${bonita.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.bonita</groupId>
+            <artifactId>bonita-server</artifactId>
+            <version>${bonita.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>1.0b3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Mule stuff -->
+        <dependency>
+            <groupId>org.mule</groupId>
+            <artifactId>mule-core</artifactId>
+            <version>${mule.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.safehaus.jug</groupId>
+                    <artifactId>jug</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.script</groupId>
+                    <artifactId>groovy-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>opensaml</groupId>
+                    <artifactId>opensaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.tests</groupId>
+            <artifactId>mule-tests-functional</artifactId>
+            <version>${mule.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.safehaus.jug</groupId>
+                    <artifactId>jug</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.script</groupId>
+                    <artifactId>groovy-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>opensaml</groupId>
+                    <artifactId>opensaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-modules-all</artifactId>
+            <version>${mule.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.safehaus.jug</groupId>
+                    <artifactId>jug</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mule.modules.jca</groupId>
+                    <artifactId>mule-module-jca-generic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mule.modules.jca</groupId>
+                    <artifactId>mule-module-jca-jboss</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.script</groupId>
+                    <artifactId>groovy-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>opensaml</groupId>
+                    <artifactId>opensaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transports-all</artifactId>
+            <version>${mule.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.safehaus.jug</groupId>
+                    <artifactId>jug</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mule.transports</groupId>
+                    <artifactId>mule-transport-jbpm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.script</groupId>
+                    <artifactId>groovy-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>opensaml</groupId>
+                    <artifactId>opensaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.safehaus.jug</groupId>
+            <artifactId>jug</artifactId>
+            <version>2.0.0-osgi</version>
+            <classifier>asl</classifier>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <mule.version>2.2.1</mule.version>
+        <bonita.version>5.2.2</bonita.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>3.8.1</junit.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>codehaus-repo</id>
+            <name>Codehaus Repository</name>
+            <url>http://dist.codehaus.org/mule/dependencies/maven2</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <activation>
+                <property>
+                    <name>generateConfigJar</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-libs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <taskdef name="if" classname="net.sf.antcontrib.logic.IfTask"
+                                                 classpathref="maven.runtime.classpath"/>
+                                        <if>
+                                            <equals arg2="bonita-connectors" arg1="java"/>
+                                            <then>
+                                                <echo message="Building parent. Skipping libs copy."/>
+                                            </then>
+                                            <else>
+                                                <copy todir="target/HelloWorldMuleConnector-mule-config"
+                                                      overwrite="true" failonerror="false">
+                                                    <fileset dir="src/test/resources">
+                                                        <include name="mule-config.xml"/>
+                                                    </fileset>
+                                                    <fileset dir="target/test-classes">
+                                                        <include name="**/HelloWorld.class"/>
+                                                    </fileset>
+                                                </copy>
+                                                <jar basedir="target/HelloWorldMuleConnector-mule-config"
+                                                     destfile="target/HelloWorldMuleConnector-mule-config.jar"/>
+                                            </else>
+                                        </if>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

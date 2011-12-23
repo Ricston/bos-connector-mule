@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+      xsi:schemaLocation="
+          http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+          http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+          http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd">
+
+	<vm:connector name="vmConnector" queueEvents="true" />
+
+	<model>
+		<service name="synchRequestResponseService">
+			<inbound>
+				<vm:inbound-endpoint path="toSynchRequestResponse" synchronous="true"/>
+			</inbound>
+			<component class="com.ricston.bonitasoft.connectors.mule.HelloWorld"/>			
+		</service>
+		
+		<service name="asynchService">
+			<inbound>
+				<vm:inbound-endpoint path="toAsychService" synchronous="false"/>
+			</inbound>
+			<component class="com.ricston.bonitasoft.connectors.mule.HelloWorld"/>
+			<outbound>
+				<pass-through-router>
+					<vm:outbound-endpoint path="fromAsychService" synchronous="false"/>
+				</pass-through-router>
+			</outbound>
+		</service>
+			
+	</model>
+</mule>

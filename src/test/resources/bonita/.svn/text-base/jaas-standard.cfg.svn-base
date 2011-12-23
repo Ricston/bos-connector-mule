@@ -1,0 +1,12 @@
+Bonita {
+  org.ow2.bonita.identity.auth.PlainLoginModule required logins="john,jack,james, admin, UnauthorizedLoginForTest" passwords="bpm, bpm, bpm, bpm, UnauthorizedPasswordForTest";
+   org.ow2.bonita.identity.auth.StorageLoginModule required;
+};
+
+BonitaAuth {
+  org.ow2.bonita.identity.auth.BonitaIdentityLoginModule required;
+};
+
+BonitaStore {
+  org.ow2.bonita.identity.auth.LocalStorageLoginModule required;
+};
