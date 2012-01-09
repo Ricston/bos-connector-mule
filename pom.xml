@@ -6,7 +6,7 @@
 	<groupId>com.ricston.bonitasoft.connectors</groupId>
 	<artifactId>bos-connector-mule</artifactId>
 	<name>BOS Mule Connector</name>
-	<version>5.3-3.0.0</version>
+	<version>5.3-3.0.0-SNAPSHOT</version>
 
 	<build>
 		<plugins>
